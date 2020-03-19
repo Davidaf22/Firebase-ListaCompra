@@ -1,0 +1,24 @@
+<h1>LISTA DE LA COMPRA</h1>
+<table style="width: 100%; border: 1px solid black;">
+  <tr>
+    <th>Estado del Producto</th>
+    <th>Nombre</th>
+    <th>Descripción</th>
+  </tr>
+
+  <tr *ngFor="let producto of productos index as i;">
+    <td>
+      <input type="radio" name="comprado-{{i}}" [(ngModel)]="producto.comprado" [value]=true> Comprado
+      <input type="radio" name="comprado-{{i}}" [(ngModel)]="producto.comprado" [value]=false> Comprar
+    </td>
+    <td>{{producto.nombre}}</td>
+    <td>{{producto.descripcion}}</td>
+  </tr>
+</table>
+
+<hr>
+
+<h2>Productos Comprados:</h2>
+<div *ngFor="let producto of productos index as i;">
+  <h3 *ngIf="productos[i].comprado">{{productos[i].nombre}}</h3>
+</div>

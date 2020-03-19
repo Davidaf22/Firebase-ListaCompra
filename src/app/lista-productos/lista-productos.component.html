@@ -1,0 +1,33 @@
+<div class="loginDiv" *ngIf="( authApp.user | async) as obs; else login">{{obs.email}} - {{obs.uid}}
+  <br/><br/>
+  <button class="btn btn-secondary" (click)="authApp.logout()">OUT</button>
+  <button class="btn btn-success" (click)="dbApp.altausuario(obs.email, obs.uid)"><i class="fas fa-check"></i> ALTA</button>
+  <button class="btn btn-danger" (click)="dbApp.bajausuario(obs.uid)"><i class="far fa-trash-alt"></i> BAJA</button>
+  <br/><br/>
+</div>
+<ng-template #login>
+  <div class="loginDiv">
+    <h3>Seleciona metodo para acceder:</h3>
+    <br/><br/>
+    <button class="btn btn-primary" (click)="authApp.login()">
+      <i class="fab fa-github"></i>
+      GitHub Login</button>
+    <br/><br/>
+    <button class="btn btn-danger" (click)="authApp.glogin()">
+      <i class="fab fa-google"></i>
+      Google Login
+    </button>
+  </div>
+
+</ng-template>
+
+<h1>Lista de la compra:</h1>
+<div *ngFor="let producto of productos index as i;">
+    <button  *ngIf="!productos[i].comprado" class="myButton" (click)="onClickMe(i)" >{{productos[i].nombre}}</button>
+</div>
+
+<hr>
+<h1>Productos comprados:</h1>
+<div *ngFor="let producto of productos index as i;">
+  <button  *ngIf="productos[i].comprado" class="myButton2" (click)="onClickMe2(i)" >{{productos[i].nombre}}</button>
+</div>
