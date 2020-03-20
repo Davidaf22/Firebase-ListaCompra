@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {auth} from 'firebase';
+import {AngularFireDatabase} from '@angular/fire/database';
+import {FireDBService} from './fire-db.service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +13,8 @@ export class ServicioDeAutentService {
   pass = '';
   authUser = null;
 
-  constructor(public miauth: AngularFireAuth) { }
+  constructor(public miauth: AngularFireAuth,
+              public dbApp: FireDBService) { }
 
   user = this.miauth.authState;
 

@@ -40,7 +40,7 @@ export class ListaProductosComponent implements OnInit {
     };
     const pruducto6 = {
       nombre: 'Donuts',
-      descripcion: 'Pasel con forma circular normalmente recubierto de chocolate',
+      descripcion: 'Pastel con forma circular normalmente recubierto de chocolate',
       comprado: false,
     };
     const pruducto7 = {
