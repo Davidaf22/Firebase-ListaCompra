@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {ServicioDeAutentService} from '../servicio-de-autent.service';
 import {FireDBService} from '../fire-db.service';
+import index from '@angular/cli/lib/cli';
 
 @Component({
   selector: 'app-lista-productos',
@@ -38,42 +39,13 @@ export class ListaProductosComponent implements OnInit {
       descripcion: 'Elemento fundamental en la vida de los seres vivos',
       comprado: false,
     };
-    const pruducto6 = {
-      nombre: 'Donuts',
-      descripcion: 'Pastel con forma circular normalmente recubierto de chocolate',
-      comprado: false,
-    };
-    const pruducto7 = {
-      nombre: 'M&M',
-      descripcion: 'Cacahuetes recubiertos de chocolate con otro recubrimiento exterior de caramelo.',
-      comprado: false,
-    };
-    const pruducto8 = {
-      nombre: 'Galletas',
-      descripcion: 'Bolletia realizado en el horno',
-      comprado: false,
-    };
-    const pruducto9 = {
-      nombre: 'Solomillo',
-      descripcion: 'Pieza de carne que ',
-      comprado: false,
-    };
-    const pruducto10 = {
-      nombre: 'Chorizo ',
-      descripcion: 'Alimento realizado a base de sobras de las demas piezas de carne.',
-      comprado: false,
-    };
+
     this.productos = [];
     this.productos.push(pruducto1);
     this.productos.push(pruducto2);
     this.productos.push(pruducto3);
     this.productos.push(pruducto4);
     this.productos.push(pruducto5);
-    this.productos.push(pruducto6);
-    this.productos.push(pruducto7);
-    this.productos.push(pruducto8);
-    this.productos.push(pruducto9);
-    this.productos.push(pruducto10);
   }
   ngOnInit() {
   }
@@ -83,5 +55,9 @@ export class ListaProductosComponent implements OnInit {
   }
   onClickMe2(i) {
     this.productos[i].comprado = false;
+  }
+  setValores(productosBD: any){
+    const restantes = this.productos.filter(item => productosBD.indexOf(item) < 0);
+    console.log(restantes);
   }
 }
