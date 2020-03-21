@@ -8,12 +8,9 @@ import {ListaProductosComponent} from './lista-productos/lista-productos.compone
 export class FireDBService {
 
   constructor(public db: AngularFireDatabase) { }
-
   user = null;
-  productos = [];
-
   altausuario(user: any) {
-    const path = 'usuarios/' + user.uid;
+    const path = 'usuarios/' + user.uid + '/Datos';
     const u = {
       email: user.email
     }
@@ -25,33 +22,21 @@ export class FireDBService {
     this.db.object(path).remove();
     console.log('Borramos usuario');
   }
-  addProducto(user: any, nombre){
-    const path = 'usuarios/' + user.uid;
+  addProducto(user: any, nombre , descripcion){
+    const path = 'usuarios/' + user.uid + '/' + nombre;
     const u = {
-      nombre: 'EnLista'
+      Descripcion: descripcion
     }
     this.db.object(path).update(u).catch(error => console.log(error));
-    console.log('Insertado producto, dentro de UID');
+    console.log('Insertado producto ' , nombre);
   }
   borrarProducto(user: any, nombre){
     const path = 'usuarios/' + user.uid + '/' + nombre;
     this.db.object(path).remove();
-    console.log('Producto usuario');
+    console.log('Producto usuario ' , nombre);
   }
-  leerProductos(user: any){
+  leerProductos(user: any) {
     const path = 'usuarios/' + user.uid;
-    this.db.list(path).snapshotChanges().subscribe( snap => {
-      this.productos = [];
-      snap.forEach( u => {
-        const clave = u.payload.key;
-        const producto = {
-          key: clave,
-          valor: u.payload.val()
-        }
-        this.productos.push(producto);
-        console.log(u);
-      })
-      console.log('Productos BD: ', this.productos);
-    });
+    return this.db.list(path).snapshotChanges();
   }
 }

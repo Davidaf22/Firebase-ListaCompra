@@ -3,18 +3,18 @@
   <button class="btn btn-secondary" (click)="authApp.logout()">OUT</button>
   <button class="btn btn-success" (click)="dbApp.altausuario(obs)"><i class="fas fa-check"></i> ALTA</button>
   <button class="btn btn-danger" (click)="dbApp.bajausuario(obs)"><i class="far fa-trash-alt"></i> BAJA</button>
-  <button class="btn btn-secondary" (click)="dbApp.leerProductos(obs)"><i class="fad fa-shopping-basket"></i>Cargar Lista</button>
+  <button class="btn btn-secondary" (click)="setValores(obs)"><i class="fad fa-shopping-basket"></i>Cargar Lista</button>
   <br/><br/>
 
   <h1>Productos a comprar:</h1>
   <div *ngFor="let producto of productos index as i;">
-    <button  *ngIf="productos[i].comprado" class="myButton2" (click)="onClickMe2(i)" >{{productos[i].nombre}}</button>
+    <button  *ngIf="productos[i].comprado" class="myButton2" (click)="setFalse(obs,i)" >{{productos[i].nombre}}</button>
   </div>
   <hr>
   <hr>
   <h1>Productos:</h1>
   <div *ngFor="let producto of productos index as i;">
-    <button  *ngIf="!productos[i].comprado" class="myButton" (click)="onClickMe(i)" >{{productos[i].nombre}}</button>
+    <button  *ngIf="!productos[i].comprado" class="myButton" (click)="seTrue(obs,i)" >{{productos[i].nombre}}</button>
   </div>
 
 </div>

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {ServicioDeAutentService} from '../servicio-de-autent.service';
 import {FireDBService} from '../fire-db.service';
-import index from '@angular/cli/lib/cli';
 
 @Component({
   selector: 'app-lista-productos',
@@ -50,14 +49,31 @@ export class ListaProductosComponent implements OnInit {
   ngOnInit() {
   }
 
-  onClickMe(i) {
+  seTrue(user: any , i) {
     this.productos[i].comprado = true;
+    this.dbApp.addProducto(user , this.productos[i].nombre , this.productos[i].descripcion);
   }
-  onClickMe2(i) {
+  setFalse(user: any , i) {
     this.productos[i].comprado = false;
+    this.dbApp.borrarProducto(user , this.productos[i].nombre)
   }
-  setValores(productosBD: any){
-    const restantes = this.productos.filter(item => productosBD.indexOf(item) < 0);
-    console.log(restantes);
+
+  setValores(user: any) {
+    let productosBD = [];
+    this.dbApp.leerProductos(user).subscribe( snap => {
+      productosBD = [];
+      snap.forEach( u => {
+        const producto: any = u.payload.val();
+        producto.key = u.key;
+        productosBD.push(producto.key);
+        console.log(producto.key);
+        for (const prod in this.productos) {
+          if (producto.key === this.productos[prod].nombre) {
+            console.log('Aqui cambiamos a true el producto ' , this.productos[prod].nombre);
+            this.productos[prod].comprado = true;
+          }
+        }
+      });
+    });
   }
 }
